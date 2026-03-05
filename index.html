@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绿野随笔 - 清新博客</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-decoration">
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+    </div>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">绿野随笔</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="#articles">文章</a></li>
+                <li><a href="#categories">分类</a></li>
+                <li><a href="about.html">关于</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <span class="sun-icon">☀️</span>
+                <span class="moon-icon">🌙</span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">在文字中</span>
+                    <span class="title-line highlight">遇见美好</span>
+                </h1>
+                <p class="hero-subtitle">记录生活中的点滴感悟，分享旅途中的风景与故事</p>
+                <div class="hero-buttons">
+                    <a href="#articles" class="btn btn-primary">开始阅读</a>
+                    <a href="about.html" class="btn btn-secondary">了解更多</a>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <div class="illustration-container">
+                    <div class="plant plant-1"></div>
+                    <div class="plant plant-2"></div>
+                    <div class="plant plant-3"></div>
+                    <div class="butterfly butterfly-1"></div>
+                    <div class="butterfly butterfly-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured" id="articles">
+            <div class="section-header">
+                <h2 class="section-title">精选文章</h2>
+                <p class="section-desc">用心记录，用爱分享</p>
+            </div>
+            <div class="featured-grid">
+                <article class="featured-card main-featured">
+                    <div class="card-image">
+                        <div class="image-placeholder spring-bg">
+                            <span class="placeholder-icon">🌸</span>
+                        </div>
+                        <span class="card-category">生活随笔</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">春日漫步：在樱花树下遇见最美的时光</h3>
+                        <p class="card-excerpt">三月的午后，阳光透过樱花的花瓣洒落一地斑驳的光影。我沿着小径漫步，脚下是柔软的花瓣铺成的粉色地毯，空气中弥漫着淡淡的花香...</p>
+                        <div class="card-meta">
+                            <span class="meta-date">2024年3月15日</span>
+                            <span class="meta-reading">阅读约 8 分钟</span>
+                        </div>
+                        <a href="article.html" class="card-link">阅读全文 →</a>
+                    </div>
+                </article>
+
+                <article class="featured-card">
+                    <div class="card-image">
+                        <div class="image-placeholder forest-bg">
+                            <span class="placeholder-icon">🌲</span>
+                        </div>
+                        <span class="card-category">自然探索</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">森林深处的秘密花园</h3>
+                        <p class="card-excerpt">在那片古老的森林深处，藏着一个鲜为人知的秘密花园...</p>
+                        <div class="card-meta">
+                            <span class="meta-date">2024年3月10日</span>
+                            <span class="meta-reading">阅读约 6 分钟</span>
+                        </div>
+                        <a href="article.html" class="card-link">阅读全文 →</a>
+                    </div>
+                </article>
+
+                <article class="featured-card">
+                    <div class="card-image">
+                        <div class="image-placeholder tea-bg">
+                            <span class="placeholder-icon">🍵</span>
+                        </div>
+                        <span class="card-category">慢生活</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">一盏清茶，半日闲情</h3>
+                        <p class="card-excerpt">午后的阳光斜斜地照进窗棂，我泡上一壶龙井，看着茶叶在水中缓缓舒展...</p>
+                        <div class="card-meta">
+                            <span class="meta-date">2024年3月5日</span>
+                            <span class="meta-reading">阅读约 5 分钟</span>
+                        </div>
+                        <a href="article.html" class="card-link">阅读全文 →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="articles-list">
+            <div class="section-header">
+                <h2 class="section-title">最新文章</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">全部</button>
+                    <button class="filter-tab" data-filter="life">生活</button>
+                    <button class="filter-tab" data-filter="travel">旅行</button>
+                    <button class="filter-tab" data-filter="nature">自然</button>
+                </div>
+            </div>
+            <div class="articles-grid">
+                <article class="article-card" data-category="life">
+                    <div class="article-image">
+                        <div class="image-placeholder morning-bg">
+                            <span class="placeholder-icon">🌅</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">生活随笔</span>
+                        <h3 class="article-title">晨光中的第一缕温暖</h3>
+                        <p class="article-excerpt">清晨的第一缕阳光穿过窗帘的缝隙，在地板上画出一道金色的线条。我喜欢这样的早晨...</p>
+                        <div class="article-footer">
+                            <span class="article-date">2024年3月1日</span>
+                            <a href="article.html" class="read-more">阅读 →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="travel">
+                    <div class="article-image">
+                        <div class="image-placeholder mountain-bg">
+                            <span class="placeholder-icon">⛰️</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">旅行日记</span>
+                        <h3 class="article-title">云端之上的邂逅</h3>
+                        <p class="article-excerpt">登上山顶的那一刻，云海在脚下翻涌，仿佛置身于仙境之中...</p>
+                        <div class="article-footer">
+                            <span class="article-date">2024年2月28日</span>
+                            <a href="article.html" class="read-more">阅读 →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="nature">
+                    <div class="article-image">
+                        <div class="image-placeholder rain-bg">
+                            <span class="placeholder-icon">🌧️</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">自然感悟</span>
+                        <h3 class="article-title">听雨：一场与自然的对话</h3>
+                        <p class="article-excerpt">雨滴敲打着屋檐，奏响一曲自然的乐章。我静静地坐在窗前，聆听这美妙的旋律...</p>
+                        <div class="article-footer">
+                            <span class="article-date">2024年2月25日</span>
+                            <a href="article.html" class="read-more">阅读 →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="life">
+                    <div class="article-image">
+                        <div class="image-placeholder book-bg">
+                            <span class="placeholder-icon">📚</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">生活随笔</span>
+                        <h3 class="article-title">书页间的诗意栖居</h3>
+                        <p class="article-excerpt">翻开一本旧书，淡淡的墨香扑面而来。在文字的海洋中，我找到了心灵的栖息地...</p>
+                        <div class="article-footer">
+                            <span class="article-date">2024年2月20日</span>
+                            <a href="article.html" class="read-more">阅读 →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="travel">
+                    <div class="article-image">
+                        <div class="image-placeholder sea-bg">
+                            <span class="placeholder-icon">🌊</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">旅行日记</span>
+                        <h3 class="article-title">海边日落：时光的馈赠</h3>
+                        <p class="article-excerpt">夕阳西下，海面被染成金色。我站在沙滩上，看着太阳缓缓沉入海平面...</p>
+                        <div class="article-footer">
+                            <span class="article-date">2024年2月15日</span>
+                            <a href="article.html" class="read-more">阅读 →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="nature">
+                    <div class="article-image">
+                        <div class="image-placeholder star-bg">
+                            <span class="placeholder-icon">✨</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">自然感悟</span>
+                        <h3 class="article-title">星空下的沉思</h3>
+                        <p class="article-excerpt">仰望满天繁星，感受宇宙的浩瀚与神秘。在这静谧的夜晚，思绪随风飘远...</p>
+                        <div class="article-footer">
+                            <span class="article-date">2024年2月10日</span>
+                            <a href="article.html" class="read-more">阅读 →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="load-more">
+                <button class="btn btn-outline" id="loadMoreBtn">加载更多</button>
+            </div>
+        </section>
+
+        <section class="categories" id="categories">
+            <div class="section-header">
+                <h2 class="section-title">文章分类</h2>
+                <p class="section-desc">探索不同主题的内容</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">🌱</div>
+                    <h3 class="category-name">生活随笔</h3>
+                    <p class="category-count">12 篇文章</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🍃</div>
+                    <h3 class="category-name">自然探索</h3>
+                    <p class="category-count">8 篇文章</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🌿</div>
+                    <h3 class="category-name">旅行日记</h3>
+                    <p class="category-count">15 篇文章</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🍀</div>
+                    <h3 class="category-name">慢生活</h3>
+                    <p class="category-count">6 篇文章</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <div class="newsletter-content">
+                <div class="newsletter-icon">📬</div>
+                <h2 class="newsletter-title">订阅我的博客</h2>
+                <p class="newsletter-desc">第一时间获取最新文章，一起感受生活中的美好</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="请输入您的邮箱" class="newsletter-input" required>
+                    <button type="submit" class="btn btn-primary">订阅</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-icon">🌿</span>
+                    <span class="logo-text">绿野随笔</span>
+                </div>
+                <p class="footer-desc">用文字记录生活，用心灵感受美好</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>导航</h4>
+                    <a href="index.html">首页</a>
+                    <a href="#articles">文章</a>
+                    <a href="#categories">分类</a>
+                    <a href="about.html">关于</a>
+                </div>
+                <div class="footer-column">
+                    <h4>分类</h4>
+                    <a href="#">生活随笔</a>
+                    <a href="#">自然探索</a>
+                    <a href="#">旅行日记</a>
+                    <a href="#">慢生活</a>
+                </div>
+                <div class="footer-column">
+                    <h4>联系</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Email</a>
+                    <a href="#">RSS</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 绿野随笔. 用 ❤️ 创作</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop">
+        <span>↑</span>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
