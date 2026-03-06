@@ -89,6 +89,7 @@
             margin: 3rem 0 1.5rem;
             padding-left: 1rem;
             border-left: 4px solid var(--primary-500);
+            scroll-margin-top: 100px;
         }
         
         .article-body h3 {
@@ -96,6 +97,97 @@
             font-size: 1.4rem;
             color: var(--text-primary);
             margin: 2rem 0 1rem;
+            scroll-margin-top: 100px;
+        }
+        
+        .article-toc {
+            position: fixed;
+            left: 2rem;
+            top: 150px;
+            width: 220px;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            display: none;
+        }
+        
+        .article-toc.active {
+            display: block;
+        }
+        
+        .toc-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--primary-100);
+        }
+        
+        .toc-list {
+            list-style: none;
+        }
+        
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .toc-list a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+            display: block;
+            padding: 0.25rem 0;
+        }
+        
+        .toc-list a:hover,
+        .toc-list a.active {
+            color: var(--primary-600);
+        }
+        
+        .toc-list .toc-h3 {
+            padding-left: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .article-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--primary-100);
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .article-toc {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .article-main-title {
+                font-size: 2rem;
+            }
+            
+            .article-meta-top {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .article-body {
+                font-size: 1rem;
+            }
         }
         
         .article-body blockquote {
@@ -416,6 +508,15 @@
                 <li><a href="index.html#categories">分类</a></li>
                 <li><a href="about.html">关于</a></li>
             </ul>
+            <div class="search-container">
+                <button class="search-toggle" id="searchToggle">
+                    <span>🔍</span>
+                </button>
+                <div class="search-box" id="searchBox">
+                    <input type="text" class="search-input" id="searchInput" placeholder="搜索文章...">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
             <button class="theme-toggle" id="themeToggle">
                 <span class="sun-icon">☀️</span>
                 <span class="moon-icon">🌙</span>
@@ -424,12 +525,17 @@
     </header>
 
     <main>
+        <aside class="article-toc" id="articleToc">
+            <h4 class="toc-title">📑 文章目录</h4>
+            <ul class="toc-list" id="tocList"></ul>
+        </aside>
+
         <article class="article-page">
             <header class="article-header">
                 <div class="article-meta-top">
                     <span>📅 2024年3月15日</span>
-                    <span>⏱️ 阅读约 8 分钟</span>
-                    <span>👁️ 1,234 次阅读</span>
+                    <span>⏱️ 阅读约 <span id="readingTime">8</span> 分钟</span>
+                    <span>👁️ <span id="viewCount">1,234</span> 次阅读</span>
                 </div>
                 <h1 class="article-main-title">春日漫步：在樱花树下遇见最美的时光</h1>
                 <div class="article-tags">
@@ -437,6 +543,9 @@
                     <span class="tag">📷 摄影</span>
                     <span class="tag">💭 随笔</span>
                     <span class="tag">🚶 生活</span>
+                </div>
+                <div class="article-stats">
+                    <span class="stat-item">📝 <span id="wordCount">0</span> 字</span>
                 </div>
             </header>
 
@@ -683,6 +792,65 @@
                     span.textContent = '分享';
                 }, 2000);
             });
+
+            const articleBody = document.querySelector('.article-body');
+            const tocList = document.getElementById('tocList');
+            const articleToc = document.getElementById('articleToc');
+            
+            if (articleBody && tocList) {
+                const headings = articleBody.querySelectorAll('h2, h3');
+                
+                if (headings.length > 0) {
+                    articleToc.classList.add('active');
+                    
+                    headings.forEach((heading, index) => {
+                        const id = 'heading-' + index;
+                        heading.id = id;
+                        
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = '#' + id;
+                        a.textContent = heading.textContent;
+                        a.className = heading.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+                        
+                        a.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                        });
+                        
+                        li.appendChild(a);
+                        tocList.appendChild(li);
+                    });
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const id = entry.target.id;
+                                document.querySelectorAll('.toc-list a').forEach(link => {
+                                    link.classList.remove('active');
+                                    if (link.getAttribute('href') === '#' + id) {
+                                        link.classList.add('active');
+                                    }
+                                });
+                            }
+                        });
+                    }, { rootMargin: '-20% 0px -60% 0px' });
+
+                    headings.forEach(heading => observer.observe(heading));
+                }
+            }
+
+            const articleText = articleBody ? articleBody.innerText : '';
+            const wordCount = articleText.replace(/\s/g, '').length;
+            const readingTime = Math.ceil(wordCount / 500);
+            
+            document.getElementById('wordCount').textContent = wordCount.toLocaleString();
+            document.getElementById('readingTime').textContent = readingTime;
+
+            let viewCount = parseInt(document.getElementById('viewCount').textContent.replace(/,/g, ''));
+            viewCount++;
+            document.getElementById('viewCount').textContent = viewCount.toLocaleString();
+            localStorage.setItem('article_views', viewCount);
         });
     </script>
 </body>

@@ -199,6 +199,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+}
+
+.nav > * {
+    flex-shrink: 0;
 }
 
 .logo {
@@ -310,6 +315,115 @@ body {
 
 [data-theme="dark"] .moon-icon {
     opacity: 1;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-toggle {
+    background: var(--bg-card);
+    border: 2px solid var(--primary-200);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.search-toggle:hover {
+    border-color: var(--primary-400);
+    background: var(--primary-50);
+}
+
+.search-box {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: 200;
+}
+
+.search-box.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--primary-200);
+    border-radius: var(--radius-lg);
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-lg);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-400);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-results {
+    margin-top: 0.5rem;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-height: 400px;
+    overflow-y: auto;
+    display: none;
+}
+
+.search-results.active {
+    display: block;
+}
+
+.search-result-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--primary-100);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: var(--primary-50);
+}
+
+.search-result-item .result-title {
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.search-result-item .result-category {
+    font-size: 0.8rem;
+    color: var(--primary-600);
+}
+
+.search-no-results {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-muted);
 }
 
 main {
@@ -1120,6 +1234,10 @@ main {
 @media (max-width: 768px) {
     .nav-links {
         display: none;
+    }
+    
+    .search-container {
+        order: -1;
     }
     
     .hero-title {

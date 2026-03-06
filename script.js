@@ -168,4 +168,80 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     console.log('🌿 绿野随笔 - 欢迎来到我的博客');
+
+    const searchToggle = document.getElementById('searchToggle');
+    const searchBox = document.getElementById('searchBox');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    const articlesData = [
+        { title: '春日漫步：在樱花树下遇见最美的时光', category: '生活随笔', url: 'article.html', excerpt: '三月的午后，阳光透过樱花的花瓣洒落一地斑驳的光影...' },
+        { title: '森林深处的秘密花园', category: '自然探索', url: 'article.html', excerpt: '在那片古老的森林深处，藏着一个鲜为人知的秘密花园...' },
+        { title: '一盏清茶，半日闲情', category: '慢生活', url: 'article.html', excerpt: '午后的阳光斜斜地照进窗棂，我泡上一壶龙井...' },
+        { title: '晨光中的第一缕温暖', category: '生活随笔', url: 'article.html', excerpt: '清晨的第一缕阳光穿过窗帘的缝隙...' },
+        { title: '云端之上的邂逅', category: '旅行日记', url: 'article.html', excerpt: '登上山顶的那一刻，云海在脚下翻涌...' },
+        { title: '听雨：一场与自然的对话', category: '自然感悟', url: 'article.html', excerpt: '雨滴敲打着屋檐，奏响一曲自然的乐章...' },
+        { title: '书页间的诗意栖居', category: '生活随笔', url: 'article.html', excerpt: '翻开一本旧书，淡淡的墨香扑面而来...' },
+        { title: '海边日落：时光的馈赠', category: '旅行日记', url: 'article.html', excerpt: '夕阳西下，海面被染成金色...' },
+        { title: '星空下的沉思', category: '自然感悟', url: 'article.html', excerpt: '仰望满天繁星，感受宇宙的浩瀚与神秘...' }
+    ];
+
+    if (searchToggle && searchBox && searchInput && searchResults) {
+        searchToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!searchBox.contains(e.target)) {
+                searchBox.classList.remove('active');
+                searchResults.classList.remove('active');
+            }
+        });
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            
+            if (query.length === 0) {
+                searchResults.classList.remove('active');
+                return;
+            }
+
+            const results = articlesData.filter(article => 
+                article.title.toLowerCase().includes(query) || 
+                article.excerpt.toLowerCase().includes(query)
+            );
+
+            if (results.length > 0) {
+                searchResults.innerHTML = results.map(article => `
+                    <div class="search-result-item" onclick="location.href='${article.url}'">
+                        <div class="result-title">${article.title}</div>
+                        <div class="result-category">${article.category}</div>
+                    </div>
+                `).join('');
+            } else {
+                searchResults.innerHTML = '<div class="search-no-results">没有找到相关文章</div>';
+            }
+
+            searchResults.classList.add('active');
+        });
+    }
+
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
 });
