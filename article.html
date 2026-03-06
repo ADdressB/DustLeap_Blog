@@ -11,6 +11,7 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
+            margin-right: 220px;
         }
         
         .article-header {
@@ -102,14 +103,11 @@
         
         .article-toc {
             position: fixed;
-            left: 2rem;
-            top: 150px;
-            width: 220px;
-            background: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
+            right: 2rem;
+            top: 120px;
+            width: 180px;
             display: none;
+            z-index: 50;
         }
         
         .article-toc.active {
@@ -118,33 +116,50 @@
         
         .toc-title {
             font-family: 'Noto Serif SC', serif;
-            font-size: 1rem;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--primary-100);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            padding-left: 0.5rem;
+            font-weight: 500;
         }
         
         .toc-list {
             list-style: none;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 0.75rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--primary-100);
         }
         
         .toc-list li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .toc-list li:last-child {
+            margin-bottom: 0;
         }
         
         .toc-list a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             transition: all var(--transition-fast);
             display: block;
-            padding: 0.25rem 0;
+            padding: 0.4rem 0.6rem;
+            border-radius: var(--radius-sm);
+            border-left: 2px solid transparent;
         }
         
-        .toc-list a:hover,
+        .toc-list a:hover {
+            color: var(--primary-600);
+            background: var(--primary-50);
+        }
+        
         .toc-list a.active {
             color: var(--primary-600);
+            background: var(--primary-50);
+            border-left-color: var(--primary-500);
         }
         
         .toc-list .toc-h3 {
@@ -172,6 +187,9 @@
         @media (max-width: 1200px) {
             .article-toc {
                 display: none;
+            }
+            .article-page {
+                margin-right: auto;
             }
         }
         
