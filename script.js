@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    initProgressBar();
+    initCursorGlow();
+    initPetals();
+    initTypingEffect();
+    initCardGlare();
+
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
     
@@ -98,10 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
             }
         });
     }, observerOptions);
@@ -145,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     cards.forEach(card => {
         card.addEventListener('mouseenter', function(e) {
-            this.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+            this.style.transition = 'transform 0.1s ease-out';
         });
         
         card.addEventListener('mousemove', function(e) {
@@ -156,14 +164,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
             
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
         });
         
         card.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            this.style.transition = 'transform 0.5s ease';
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
         });
     });
 
@@ -245,3 +254,166 @@ document.addEventListener('DOMContentLoaded', function() {
 
     lazyImages.forEach(img => imageObserver.observe(img));
 });
+
+function initProgressBar() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar';
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    });
+}
+
+function initCursorGlow() {
+    const cursorGlow = document.createElement('div');
+    cursorGlow.className = 'cursor-glow';
+    document.body.appendChild(cursorGlow);
+    
+    let mouseX = 0, mouseY = 0;
+    let glowX = 0, glowY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorGlow.classList.add('active');
+    });
+    
+    document.addEventListener('mouseleave', () => {
+        cursorGlow.classList.remove('active');
+    });
+    
+    function animateGlow() {
+        glowX += (mouseX - glowX) * 0.1;
+        glowY += (mouseY - glowY) * 0.1;
+        cursorGlow.style.left = glowX + 'px';
+        cursorGlow.style.top = glowY + 'px';
+        requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+}
+
+function initPetals() {
+    const petalColors = [
+        '#fda4af', '#fdba74', '#bef264', '#a5f3fc', '#f5d0fe',
+        '#fecdd3', '#fed7aa', '#d9f99d', '#99f6e4', '#e9d5ff'
+    ];
+    
+    const petalShapes = [
+        `<svg viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="12" ry="8" fill="currentColor" opacity="0.8"/></svg>`,
+        `<svg viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="8" ry="12" fill="currentColor" opacity="0.8"/></svg>`,
+        `<svg viewBox="0 0 30 30"><path d="M15 3 Q25 15 15 27 Q5 15 15 3" fill="currentColor" opacity="0.8"/></svg>`,
+        `<svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="8" fill="currentColor" opacity="0.7"/></svg>`
+    ];
+    
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        
+        const size = Math.random() * 20 + 15;
+        const startX = Math.random() * window.innerWidth;
+        const duration = Math.random() * 8 + 10;
+        const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+        const shape = petalShapes[Math.floor(Math.random() * petalShapes.length)];
+        
+        petal.style.width = size + 'px';
+        petal.style.height = size + 'px';
+        petal.style.left = startX + 'px';
+        petal.style.animationDuration = duration + 's';
+        petal.style.color = color;
+        petal.innerHTML = shape;
+        
+        document.body.appendChild(petal);
+        
+        setTimeout(() => {
+            petal.remove();
+        }, duration * 1000);
+    }
+    
+    for (let i = 0; i < 8; i++) {
+        setTimeout(createPetal, i * 500);
+    }
+    
+    setInterval(createPetal, 1500);
+}
+
+function initTypingEffect() {
+    const heroTitle = document.querySelector('.hero-title');
+    if (!heroTitle) return;
+    
+    const titleLines = heroTitle.querySelectorAll('.title-line');
+    if (titleLines.length < 2) return;
+    
+    const firstLine = titleLines[0].textContent;
+    const secondLine = titleLines[1].textContent;
+    
+    titleLines[0].textContent = '';
+    titleLines[1].textContent = '';
+    
+    let firstLineIndex = 0;
+    let secondLineIndex = 0;
+    let cursor = null;
+    
+    function typeFirstLine() {
+        if (firstLineIndex < firstLine.length) {
+            titleLines[0].textContent += firstLine[firstLineIndex];
+            firstLineIndex++;
+            setTimeout(typeFirstLine, 80);
+        } else {
+            cursor = document.createElement('span');
+            cursor.className = 'typing-cursor';
+            titleLines[0].appendChild(cursor);
+            
+            setTimeout(() => {
+                if (cursor) cursor.remove();
+                typeSecondLine();
+            }, 500);
+        }
+    }
+    
+    function typeSecondLine() {
+        cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        titleLines[1].appendChild(cursor);
+        
+        function type() {
+            if (secondLineIndex < secondLine.length) {
+                titleLines[1].insertBefore(
+                    document.createTextNode(secondLine[secondLineIndex]),
+                    cursor
+                );
+                secondLineIndex++;
+                setTimeout(type, 80);
+            } else {
+                setTimeout(() => {
+                    if (cursor) cursor.remove();
+                }, 1500);
+            }
+        }
+        type();
+    }
+    
+    setTimeout(typeFirstLine, 500);
+}
+
+function initCardGlare() {
+    const cards = document.querySelectorAll('.featured-card, .article-card, .category-card');
+    
+    cards.forEach(card => {
+        const glare = document.createElement('div');
+        glare.className = 'card-3d-glare';
+        card.style.position = 'relative';
+        card.appendChild(glare);
+        
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            glare.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255, 255, 255, 0.4) 0%, transparent 50%)`;
+        });
+    });
+}
